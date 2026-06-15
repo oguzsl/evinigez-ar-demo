@@ -3,79 +3,87 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>evinigez · AR demo</title>
+<title>evinigez · AR demo (3 yöntem kıyas)</title>
 <style>
   :root { color-scheme: dark; }
   html, body { margin: 0; padding: 0; background: #0a0a0a; color: #e8e8e8;
     font: 16px/1.5 -apple-system, system-ui, sans-serif; min-height: 100vh; }
-  .wrap { max-width: 780px; margin: 0 auto; padding: 22px 18px 80px; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 22px 18px 80px; }
   h1 { font-size: 22px; font-weight: 600; margin: 8px 0 6px; }
   p.sub { color: #999; margin: 0 0 20px; font-size: 14px; }
-  .row { display: grid; grid-template-columns: 1fr; gap: 20px; margin-bottom: 20px; }
-  @media (min-width: 720px) { .row { grid-template-columns: 1fr 1fr; } }
+  .row { display: grid; grid-template-columns: 1fr; gap: 18px; margin-bottom: 20px; }
+  @media (min-width: 780px) { .row { grid-template-columns: 1fr 1fr 1fr; } }
   .card { background: #141414; border: 1px solid #222; border-radius: 14px; padding: 14px; }
   .card h3 { margin: 0 0 4px; font-size: 15px; font-weight: 600; }
-  .card .meta { font-size: 12px; color: #888; margin-bottom: 10px; }
-  model-viewer { width: 100%; height: 320px; background: #0e0e0e; border-radius: 10px; }
+  .card .meta { font-size: 12px; color: #888; margin-bottom: 10px; min-height: 32px; }
+  model-viewer { width: 100%; height: 280px; background: #0e0e0e; border-radius: 10px; }
   .btn-ar {
     display: inline-flex; align-items: center; gap: 8px;
     background: #007aff; color: white; text-decoration: none;
-    padding: 12px 18px; border-radius: 12px; font-weight: 600; font-size: 16px;
+    padding: 12px 18px; border-radius: 12px; font-weight: 600; font-size: 15px;
     margin-top: 10px; -webkit-tap-highlight-color: transparent;
   }
-  .btn-ar.alt { background: #5856d6; }
+  .btn-ar.mesh { background: #5856d6; }
+  .btn-ar.oc { background: #af52de; }
   .btn-ar:active { opacity: 0.85; }
   .note { color: #777; font-size: 12px; margin-top: 18px; line-height: 1.6;
-    background: #141414; padding: 12px 14px; border-radius: 10px; border: 1px solid #222; }
+    background: #141414; padding: 14px 16px; border-radius: 10px; border: 1px solid #222; }
   .badge { display: inline-block; background: #1d2330; color: #6ad;
     padding: 2px 8px; border-radius: 6px; font-size: 11px; font-family: ui-monospace, monospace; }
+  .star { color: #f5d300; }
 </style>
 <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
 </head>
 <body>
 <div class="wrap">
-  <h1>evinigez · iki RoomPlan çıktısının karşılaştırması</h1>
-  <p class="sub">iPad Pro M2 · Apple RoomPlan · masaüstünde sürükle, iPhone Safari'de AR butonu</p>
+  <h1>evinigez · 3 farklı tarama yönteminin AR kıyası</h1>
+  <p class="sub">iPad Pro M2 · Apple resmi API'leri · iPhone Safari'de AR butonu native Quick Look açar</p>
 
   <div class="row">
     <div class="card">
-      <h3>🟦 Parametric (kategori)</h3>
-      <div class="meta">31 KB · sadece duvar/kapı/mobilya kategorisi (kutu)</div>
-      <model-viewer
-          src="oda-parametric.usdz"
-          ios-src="oda-parametric.usdz"
-          alt="parametric versiyon"
-          camera-controls auto-rotate
-          shadow-intensity="0.4"
+      <h3>🟦 RoomPlan parametric</h3>
+      <div class="meta">31 KB · sadece kategori (kutu/lego). En küçük dosya, doku yok.</div>
+      <model-viewer src="oda-parametric.usdz" ios-src="oda-parametric.usdz"
+          alt="parametric" camera-controls auto-rotate shadow-intensity="0.4"
           ar ar-modes="quick-look webxr scene-viewer">
         <button slot="ar-button" class="btn-ar">📱 AR</button>
       </model-viewer>
-      <a class="btn-ar" rel="ar" href="oda-parametric.usdz">📱 iPhone AR (parametric)</a>
+      <a class="btn-ar" rel="ar" href="oda-parametric.usdz">📱 iPhone AR</a>
     </div>
 
     <div class="card">
-      <h3>🟪 Mesh + Parametric (gerçek üçgen geometri)</h3>
-      <div class="meta">76 KB (2.4×) · gerçek mesh + kategori birlikte</div>
-      <model-viewer
-          src="oda-mesh.usdz"
-          ios-src="oda-mesh.usdz"
-          alt="mesh versiyon"
-          camera-controls auto-rotate
-          shadow-intensity="0.4"
+      <h3>🟪 RoomPlan mesh</h3>
+      <div class="meta">76 KB · gerçek üçgen mesh + kategori. Daha doğru geometri ama hâlâ dokusuz.</div>
+      <model-viewer src="oda-mesh.usdz" ios-src="oda-mesh.usdz"
+          alt="mesh" camera-controls auto-rotate shadow-intensity="0.4"
           ar ar-modes="quick-look webxr scene-viewer">
-        <button slot="ar-button" class="btn-ar alt">📱 AR</button>
+        <button slot="ar-button" class="btn-ar mesh">📱 AR</button>
       </model-viewer>
-      <a class="btn-ar alt" rel="ar" href="oda-mesh.usdz">📱 iPhone AR (mesh)</a>
+      <a class="btn-ar mesh" rel="ar" href="oda-mesh.usdz">📱 iPhone AR</a>
+    </div>
+
+    <div class="card">
+      <h3><span class="star">★</span> Object Capture (dokulu)</h3>
+      <div class="meta">11 MB · fotogerçek doku (PBR: diffuse + normal + AO). Apple'ın fotogrametri çıktısı.</div>
+      <model-viewer src="oda-objectcapture.usdz" ios-src="oda-objectcapture.usdz"
+          alt="object capture" camera-controls auto-rotate shadow-intensity="0.6"
+          environment-image="neutral"
+          ar ar-modes="quick-look webxr scene-viewer">
+        <button slot="ar-button" class="btn-ar oc">📱 AR</button>
+      </model-viewer>
+      <a class="btn-ar oc" rel="ar" href="oda-objectcapture.usdz">📱 iPhone AR</a>
     </div>
   </div>
 
   <p class="note">
-    <b>İki versiyon arasındaki fark:</b><br>
-    🟦 <b>Parametric</b> — Apple'ın algıladığı kategorik kutu temsili (kanepe ikon kutusu, masa ikon kutusu). En küçük, en stilize.<br>
-    🟪 <b>Mesh</b> — RoomPlan'ın oluşturduğu gerçek 3D mesh (üçgen ağ) + parametric birlikte. Daha "doğru" geometri ama hâlâ <b>dokusuz</b>.<br>
+    <b>Üç yöntem arasındaki fark:</b><br>
+    🟦 <b>RoomPlan parametric</b> — Apple algılayıp <b>kategori</b> verir (kanepe kutusu, masa kutusu). En küçük, en stilize, doku yok.<br>
+    🟪 <b>RoomPlan mesh</b> — Gerçek üçgen mesh + kategori birlikte. Doğru geometri ama hâlâ dokusuz, "lego" hissi.<br>
+    ★ <b>Object Capture</b> — Apple'ın fotogrametri pipeline'ı. iPad otomatik 30-100+ foto çeker, ML modeliyle <b>dokulu mesh</b> üretir. <b>PBR materyaller</b> (diffuse + normal + AO) içerir — gerçek renkler, yüzey detayı. iPad Pro M2'de cihazda işlenir (3-15 dk).<br>
     <br>
-    <b>Doku için sonraki adım:</b> ModelProvider ile dış 3D model bağlama (Sketchfab/Apple Gallery CC0 modelleri) → "lego" görünümü minimal.<br>
-    <span class="badge">.usdz</span> Apple AR Quick Look · iPhone/iPad Safari'de native, başka tarayıcı/uygulama gerekmez.
+    <b>Karşılaştır:</b> her üçünü iPhone Safari'de aç → "AR" → aynı yerine sığdır → kalite farkını gözünle gör.<br>
+    <br>
+    <span class="badge">.usdz</span> Apple AR Quick Look · iPhone/iPad Safari native, başka tarayıcı/uygulama gerekmez · HTTPS şart (GitHub Pages ✓)
   </p>
 </div>
 </body>
